@@ -100,9 +100,9 @@ $(document).ready(function() {
 
 </body>
 
-<script src="js/sidebars.js" class="astro-vvvwv3sm"></script>
+<script src="sidebars.js" class="astro-vvvwv3sm"></script>
  
-<script src="js/tema.js"></script> 
-<link href="css/sidebars.css" rel="stylesheet">
+<script src="tema.js"></script> 
+<link href="sidebars.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

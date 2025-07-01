@@ -31,7 +31,7 @@ $areas = $conn->query("SELECT * FROM areas");
     </div>
     <div class="form-floating mb-3">
         <input type="text" name="telefono" class="form-control" placeholder="Teléfono"  pattern="\d{10}" minligth="10" maxligth="10" required>
-   	<label for"floatingInput">numero de telfono (10 digitos)</label>
+   	<label for="floatingInput">numero de telfono (10 digitos)</label>
     </div>
     <div class="mb-3">
         <select name="id_area" class="form-select" required>

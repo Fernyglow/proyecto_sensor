@@ -76,7 +76,7 @@ if (isset($_POST['query'])) {
         <th>Nombre</th>
         <th>Teléfono</th>
         <th>Área</th>
-        <th>Acciones</th>
+        <th>acciones</th>
       </tr>
     </thead>
     <tbody id="resultados">

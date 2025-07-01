@@ -23,7 +23,7 @@ $areas = $conn->query("SELECT * FROM areas");
 
 <div class="container-fluid">
     <div class="row flex-nowrap">
-    <?php include'navbar.php' ?>
+    <?php include 'index.php' ?>
 <div class="col py-3">
 <div class="d-flex justify-content-center align-items-center mt-5">
 <div class="card shadow p-4" style="width: 50rem; height: 50%;">
