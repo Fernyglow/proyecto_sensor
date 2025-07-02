@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_area = $_POST['id_area'];
 
     $conn->query("INSERT INTO usuarios (nombre_user, telefono, area_id) VALUES ('$nombre', '$telefono', '$id_area')");
-    header("Location: list_usuarios.php");
+    header("Location: tabla_usuario.php");
     exit();
 }
 

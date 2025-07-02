@@ -34,8 +34,9 @@ if (isset($_POST['query'])) {
                     <td>{$fila['telefono']}</td>
                     <td>{$fila['nombre_area']}</td>
                     <td>
-                        <a href='editar.php?id={$fila['id']}'><i class='bi bi-pencil-square me-2 '></i></a>
-                        <a><i class='bi bi-trash ' title='eliminar' onclick='eliminarUsuario({$fila['id']})'></i></a>
+                    
+                        <a href='editar.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
+                        <a class='btn btn-danger btn-sm content-icon'><i class='fa fa-times' title='eliminar' onclick='eliminarUsuario({$fila['id']})'></i></a>
                     </td>
                   </tr>";
         }
@@ -59,7 +60,7 @@ if (isset($_POST['query'])) {
 	<meta property="og:title" content="Karciz : Ticketing Admin Dashboard Bootstrap 5 Template">
 	<meta property="og:description" content="Karciz : Ticketing Admin Dashboard Bootstrap 5 Template">
 	<meta property="og:image" content="https://Karciz.dexignzone.com/xhtml/social-image.png">
-    <title>KARCIZ - Ticketing Admin Dashboard </title>
+    <title>tabla de usuarios</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Datatable -->
@@ -88,6 +89,7 @@ if (isset($_POST['query'])) {
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">tabla de usuarios</h4>
+                        <a href="#" class="btn btn-primary me-3 mt-2 mt-sm-0"><i class="feather feather-user-plis"></i>agrega nuevo</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -109,10 +111,11 @@ if (isset($_POST['query'])) {
                                                 <td>{$fila['nombre_user']}</td>
                                                 <td>{$fila['telefono']}</td>
                                                 <td>{$fila['nombre_area']}</td>
-                                                                      <td>
-                          <a href='editar.php?id={$fila['id']}' title='editar'><i class='bi bi-pencil-square me-2  '></i></a>
-                          <a href=''><i class='bi bi-trash  ' title='eliminar' onclick='eliminarUsuario({$fila['id']})'></i></a>
-                      </td>
+                                                <td>
+                                                <a href='#' class='btn btn-success btn-sm content-icon'><i class='fa fa-fw fa-eye'></i></a>
+                                                 <a href='editar.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
+                                                <a class='btn btn-danger btn-sm content-icon'><i class='fa fa-times' title='eliminar' onclick='eliminarUsuario({$fila['id']})'></i></a>
+                                                </td>
                                              
                                                 </tr>";
                                             }
