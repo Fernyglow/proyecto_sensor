@@ -181,33 +181,22 @@ if (!isset($_SESSION['usuario'])) {
 					<li>
 						<a class="has-arrow ai-icon"  href="javascript:void(0);" aria-expanded="false">
 							<i class="flaticon-381-diploma"></i>
-							<span class="nav-text">CMS <span class="badge badge-xs badge-danger ms-2">New</span></span>
+							<span class="nav-text">usuarios</span>
 						</a>
                         <ul aria-expanded="false">
-							<li><a href="content.html">Content</a></li>
-							<li><a href="menu-1.html">Menu</a></li>
-							<li><a href="email-template.html">Email Template</a></li>
-							<li><a href="blog.html">Blog</a></li>
+							<li><a href="agregar_usuario.php">agregar usuarios</a></li>
+							<li><a href="tabla_usuario.php">usuarios</a></li>
 						</ul>
                     </li>
-					<li>
-						<a class="has-arrow ai-icon" href="javascript:void(0);" aria-expanded="false">
-							<i class="flaticon-381-id-card"></i>
-							<span class="nav-text">Ticket<span class="badge badge-xs badge-danger ms-2">New</span></span>
-						</a>
-                        <ul aria-expanded="false">
-							<li><a href="create-ticket.html">Create Ticket</a></li>
-							<li><a href="all-ticket.html">All Ticket</a></li>
-						</ul>
-                    </li>
+
 					<li>
 						<a class="has-arrow ai-icon" href="javascript:void(0);" aria-expanded="false">
 							<i class="flaticon-381-id-card-4"></i>
-							<span class="nav-text">Customers <span class="badge badge-xs badge-danger ms-2">New</span></span>
+							<span class="nav-text">area </span>
 						</a>
                         <ul aria-expanded="false">
-							<li><a href="customers-list.html">Customers List</a></li>
-							<li><a href="chat.html">Chat</a></li>
+							<li><a href="agregar_sensor.php">agregar area</a></li>
+							<li><a href="tabla_area.php">areas</a></li>
 						</ul>
                     </li>
                     <li>

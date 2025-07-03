@@ -4,10 +4,11 @@ include 'conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST['nombre_user'];
+    $apelido_user = $_POST ['apellido_user'];
     $telefono = $_POST['telefono'];
     $id_area = $_POST['id_area'];
 
-    $conn->query("INSERT INTO usuarios (nombre_user, telefono, area_id) VALUES ('$nombre', '$telefono', '$id_area')");
+    $conn->query("INSERT INTO usuarios (nombre_user, apellido_user, telefono, area_id) VALUES ('$nombre', '$apelido_user', '$telefono', '$id_area')");
     header("Location: tabla_usuario.php");
     exit();
 }
@@ -27,42 +28,41 @@ $areas = $conn->query("SELECT * FROM areas");
         </div>
 
         <!-- row -->
-        <div class="col-xl-6 col-log-12">
-            <div class="card">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="card ">
                 <div class="card-header">
                     <h4 class="card-title">nuevo usuario</h4>
 
                 </div>
                 <div class="card-body">
                     <div class="basic-form">
-                        <form action="" method="POST">
-                            <div class="row">
-                                <div class="mb-3 col-md-6">
+                        <form action="" method="post" >
+                            <div class="row ">
+                                <div class="mb-3">
                                     <label class="form-label">nombre completo</label>
-                                    <input type="text" class="form-control" placeholder="julana de tal">
+                                    <input type="text" name="nombre_user" class="form-control" placeholder="Nombre del usuario" required>
                                 </div>
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3 ">
                                     <label class="form-label">apellidos</label>
-                                    <input type="text" class="form-control" placeholder="apellidos">
-                                </div>
+                                    <input type="text" name="apellido_user" class="form-control" placeholder="apellidos">
+                                </div> 
                             </div>
 
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">telefono</label>
-                                    <input type="telefono" class="form-control" placeholder="tlefono">
+                                   <input type="text" name="telefono" class="form-control" placeholder="Teléfono"  pattern="\d{10}" minligth="10" maxligth="10" required>
                                 </div>
-                                <div class="mb-3 col-md-6">
+                                <!--<div class="mb-3 col-md-6">
                                     <label class="form-label">fecha registro</label>
                                     <input type="date" class="form-control" id="fechaRegistro" name="fechaRegistro" required>
-                                </div>
+                                </div>-->
                             </div>
 
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Area asignada</label>
-                                    <select id="inputState" class="default-select form-control wide">
-                                        <option value=""></option>
+                                    <select id="id_area" name="id_area" class="default-select form-control wide" required>
                                         <?php while ($area = $areas->fetch_assoc()): ?>
                                             <option value="<?= $area['id'] ?>"><?= $area['nombre_area'] ?></option>
                                         <?php endwhile; ?>
@@ -71,7 +71,7 @@ $areas = $conn->query("SELECT * FROM areas");
                             </div>
                             <div class="d-flex justify-content-end">
                                 <button type="submit" class="btn me-2 btn-primary">Guardar</button>
-                                <button type="submit" class="btn btn-light">Cancelar</button>
+                                <button type="submit" class="btn btn-light"><a href="tabla_usuario.php">Cancelar</a></button>
                             </div>
                         </form>
                     </div>

@@ -13,11 +13,12 @@ $condicion = "";
 if (isset($_POST['query'])) {
     $busqueda = $conn->real_escape_string($_POST['query']);
     $condicion = "WHERE usuarios.nombre_user LIKE '%$busqueda%' 
+                  OR usuarios.apellido_user LIKE '%$busqueda%' 
                   OR usuarios.telefono LIKE '%$busqueda%' 
                   OR areas.nombre_area LIKE '%$busqueda%'";
 }
 
-$sql = "SELECT usuarios.id, usuarios.nombre_user, usuarios.telefono, areas.nombre_area
+$sql = "SELECT usuarios.id, usuarios.nombre_user, usuarios.apellido_user, usuarios.telefono, areas.nombre_area
         FROM usuarios
         INNER JOIN areas ON usuarios.area_id = areas.id
         $condicion
@@ -31,12 +32,13 @@ if (isset($_POST['query'])) {
         while ($fila = $resultado->fetch_assoc()) {
             echo "<tr>
                     <td>{$fila['nombre_user']}</td>
+                    <td>{$fila['apellido_user']}</td>
                     <td>{$fila['telefono']}</td>
                     <td>{$fila['nombre_area']}</td>
                     <td>
-                    
-                        <a href='editar.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
-                        <a class='btn btn-danger btn-sm content-icon'><i class='fa fa-times' title='eliminar' onclick='eliminarUsuario({$fila['id']})'></i></a>
+                        <a href='#' class='btn btn-success btn-sm content-icon'><i class='fa fa-fw fa-eye'></i></a>
+                        <a href='editar_user.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
+                        <a class='btn btn-danger btn-sm content-icon'  title='eliminar' onclick='eliminarUsuario({$fila['id']})'><i class='fa fa-times'></i></a>
                     </td>
                   </tr>";
         }
@@ -89,7 +91,7 @@ if (isset($_POST['query'])) {
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">tabla de usuarios</h4>
-                        <a href="#" class="btn btn-primary me-3 mt-2 mt-sm-0"><i class="feather feather-user-plis"></i>agrega nuevo</a>
+                        <a href="agregar_usuario.php" class="btn btn-primary me-3 mt-2 mt-sm-0"><i class="feather feather-user-plis"></i>agrega nuevo</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -97,6 +99,7 @@ if (isset($_POST['query'])) {
                                 <thead>
                                     <tr>
                                         <th>nombre</th>
+                                        <th>apellido</th>
                                         <th>telefono</th>
                                         <th>area</th>
                                         <th>acciones</th>
@@ -109,12 +112,13 @@ if (isset($_POST['query'])) {
                                         while ($fila = $resultado->fetch_assoc()) {
                                             echo "<tr>
                                                 <td>{$fila['nombre_user']}</td>
+                                                <td>{$fila['apellido_user']}</td>
                                                 <td>{$fila['telefono']}</td>
                                                 <td>{$fila['nombre_area']}</td>
                                                 <td>
                                                 <a href='#' class='btn btn-success btn-sm content-icon'><i class='fa fa-fw fa-eye'></i></a>
-                                                 <a href='editar.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
-                                                <a class='btn btn-danger btn-sm content-icon'><i class='fa fa-times' title='eliminar' onclick='eliminarUsuario({$fila['id']})'></i></a>
+                                                 <a href='editar_user.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
+                                                <a class='btn btn-danger btn-sm content-icon'  title='eliminar' onclick='eliminarUsuario({$fila['id']})'><i class='fa fa-times' title='eliminar'></i></a>
                                                 </td>
                                              
                                                 </tr>";
@@ -143,24 +147,28 @@ if (isset($_POST['query'])) {
 
     <script src="js/plugins-init/datatables.init.js"></script>
 	
-    <script>
+<script>
+let ultimoTextoBuscado = '';
+
 $(document).ready(function(){
-  $('#busqueda').on("keyup", function(){
-    let texto = $(this).val();
-    $.post('', {query: texto}, function(data){
+  $('input[type="text"]').on("keyup", function(){
+    ultimoTextoBuscado = $(this).val(); // Guardamos el texto
+    $.post('', {query: ultimoTextoBuscado}, function(data){
       $('#resultados').html(data);
     });
   });
 });
 
-// Eliminar usuario con confirmación
 function eliminarUsuario(id) {
   if (confirm("¿Seguro que deseas eliminar este usuario?")) {
     $.post('', {eliminar_id: id}, function(){
-      $('#busqueda').keyup(); // Recarga la búsqueda actual
+      $.post('', {query: ultimoTextoBuscado}, function(data){
+        $('#resultados').html(data);
+      });
     });
   }
 }
+
 </script>
 
 </body>

@@ -6,13 +6,17 @@ $id = $_GET['id'];
 // Si se envió el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST['nombre_user'];
+    $apellido = $_POST['apellido_user'];
     $telefono = $_POST['telefono'];
     $id_area = $_POST['id_area'];
+
+ 
     
-    $conn->query("UPDATE usuarios SET nombre_user='$nombre', telefono='$telefono', area_id='$id_area' WHERE id=$id");
-    header("Location: list_usuario.php");
+    $conn->query("UPDATE usuarios SET nombre_user='$nombre', apellido_user='$apellido', telefono='$telefono', area_id='$id_area' WHERE id=$id");
+    header("Location: tabla_usuario.php");
     exit();
 }
+
 
 // Obtener datos del usuario actual
 $usuario = $conn->query("SELECT * FROM usuarios WHERE id=$id")->fetch_assoc();
@@ -38,7 +42,7 @@ $areas = $conn->query("SELECT * FROM areas");
 
                 <div class="card-body">
                     <div class="basic-form">
-                        <form action="" method="POST">
+                        <form action="" method="post">
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">nombre</label>
@@ -48,7 +52,7 @@ $areas = $conn->query("SELECT * FROM areas");
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">apellido</label>
-                                    <input type="text" name="apellido_user" class="form-control" value="<?= $apellido['apellido_user'] ?>">
+                                    <input type="text" name="apellido_user" class="form-control" value="<?= $usuario['apellido_user'] ?>" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -60,7 +64,8 @@ $areas = $conn->query("SELECT * FROM areas");
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label class="form label">area</label>
-                                    <select name="id_area"  id="inputState" class="default-select form-control wide" required>
+                                    <select id="id_area" name="id_area" class="default-select form-control wide" required>
+                                        <option value="" disabled selected>-- Selecciona un área --</option>
                                         <?php while ($area = $areas->fetch_assoc()): ?>
                                             <option value="<?= $area['id'] ?>" <?= $area['id'] == $usuario['id_area'] ? 'selected' : '' ?>>
                                                 <?= $area['nombre_area'] ?>
@@ -71,7 +76,7 @@ $areas = $conn->query("SELECT * FROM areas");
                             </div>
                             <div class="d-flex justify-content-end">
                                 <button type="submit" class="btn me-2 btn-primary">Guardar</button>
-                                <button type="submit" class="btn btn-light">Cancelar</button>
+                                <button type="submit" class="btn btn-light"><a href="tabla_usuario.php">Cancelar</a></button>
                             </div>
                         </form>
                     </div>
@@ -80,3 +85,5 @@ $areas = $conn->query("SELECT * FROM areas");
         </div>
     </div>
 </div>
+
+
