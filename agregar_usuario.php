@@ -1,3 +1,11 @@
+
+<?php 
+session_start();
+if (!isset($_SESSION['usuario'])) {
+	header("location: page-login.php");
+	exit;
+}
+?>
 <?php
 
 include 'conexion.php';

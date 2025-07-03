@@ -2,7 +2,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION['usuario'])) {
-	header("location: index-light.php");
+	header("location: page-login.php");
 	exit;
 }
 ?>
@@ -132,7 +132,7 @@ if (!isset($_SESSION['usuario'])) {
 
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link"  href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-									<img src="images/profile/12.png" width="20" alt="">
+									<img src="" width="20" alt="">
 									<div class="header-info">
 										<span><?= $_SESSION['usuario'] ?><i class="fa fa-caret-down ms-3" aria-hidden="true"></i></span>
 									</div>

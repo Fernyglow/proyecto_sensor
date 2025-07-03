@@ -1,4 +1,13 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    header("Location: page-login.php");
+    exit;
+}
+?>
+
+<?php
 include 'conexion.php';
 
 // Eliminar usuario por AJAX
