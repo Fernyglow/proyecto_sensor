@@ -1,4 +1,56 @@
+<?php 
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("location: page-login.php");
+    exit;
+}
 
+include 'conexion.php';
+
+if (isset($_POST['eliminar_id'])) {
+    $id = intval($_POST['eliminar_id']);
+    $conn->query("DELETE FROM sensores WHERE id = $id");
+    exit;
+}
+
+if (isset($_POST['query'])) {
+    $busqueda = $conn->real_escape_string($_POST['query']);
+    $condicion = "WHERE sensores.nombre_sensor LIKE '%$busqueda%' 
+                  OR sensores.tipo_sensor LIKE '%$busqueda%' 
+                  OR areas.nombre_area LIKE '%$busqueda%'
+                  OR sensores.estado LIKE '%$busqueda%'";
+} 
+
+$sql = "SELECT sensores.id, sensores.nombre_sensor, sensores.tipo_sensor, areas.nombre_area, sensores.estado
+        FROM sensores
+        INNER JOIN areas ON sensores.area_id = areas.id
+        $condicion
+        ORDER BY sensores.nombre_sensor ASC";
+
+        $resualtado = $conn->query($sql);
+
+        if (isset($_POST['query'])) {
+            if ($resualtado->num_rows > 0) {
+                while ($fila = $resualtado->fetch_assoc()) {
+                    echo "<tr>
+                            <td>{$fila['nombre_sensor']}</td>
+                            <td>{$fila['tipo_sensor']}</td>
+                            <td>{$fila['nombre_area']}</td>
+                            <td>{$fila['estado']}</td>
+                            <td>
+                                <a href='ver_sensor.php?id={$fila['id']}' class='btn btn-success btn-sm content-icon' title='ver'><i class='fa fa-fw fa-eye'></i></a>
+                                <a href='editar_sensor.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
+                                <a class='btn btn-danger btn-sm content-icon' title='eliminar' onclick='eliminarSensor({$fila['id']})'><i class='fa fa-times'></i></a>
+                            </td>
+                          </tr>";
+                }
+            } else {
+                echo "<tr><td colspan='5' class='text-center text-muted'>No se encontraron resultados</td></tr>";
+            }
+            exit;
+        }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +94,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">tabla de usuarios</h4>
-                        <a href="agregar_usuario.php" class="btn btn-primary me-3 mt-2 mt-sm-0"><i class="feather feather-user-plis"></i>agrega nuevo</a>
+                        <a href="agregar_area.php" class="btn btn-primary me-3 mt-2 mt-sm-0"><i class="feather feather-user-plis"></i>agrega nuevo</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -57,6 +109,25 @@
                                     </tr>
                                 </thead>
                                 <tbody id="resultados">
+                                    <?php
+                                    if ($resualtado->num_rows > 0) {
+                                        while ($fila = $resualtado->fetch_assoc()) {
+                                            echo "<tr>
+                                                    <td>{$fila['nombre_sensor']}</td>
+                                                    <td>{$fila['tipo_sensor']}</td>
+                                                    <td>{$fila['nombre_area']}</td>
+                                                    <td>{$fila['estado']}</td>
+                                                    <td>
+                                                        <a href='ver_sensor.php?id={$fila['id']}' class='btn btn-success btn-sm content-icon' title='ver'><i class='fa fa-fw fa-eye'></i></a>
+                                                        <a href='editar_sensor.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
+                                                        <a class='btn btn-danger btn-sm content-icon' title='eliminar' onclick='eliminarSensor({$fila['id']})'><i class='fa fa-times'></i></a>
+                                                    </td> 
+                                                    </tr>";
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='5' class='text-center text-muted'>No se encontraron resultados</td></tr>";
+                                    }
+                                    ?>
                                     
                                 </tbody>
                             </table>
@@ -76,7 +147,29 @@
     <!-- Datatable -->
 
     <script src="js/plugins-init/datatables.init.js"></script>
-	
+	<script>
+let ultimoTextoBuscado = '';
+
+$(document).ready(function(){
+  $('input[type="text"]').on("keyup", function(){
+    ultimoTextoBuscado = $(this).val(); // Guardamos el texto
+    $.post('', {query: ultimoTextoBuscado}, function(data){
+      $('#resultados').html(data);
+    });
+  });
+});
+
+function eliminarSensor(id) {
+  if (confirm("¿Seguro que deseas eliminar este usuario?")) {
+    $.post('', {eliminar_id: id}, function(){
+      $.post('', {query: ultimoTextoBuscado}, function(data){
+        $('#resultados').html(data);
+      });
+    });
+  }
+}
+
+</script>
 
 </body>
 </html>

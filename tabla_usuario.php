@@ -24,10 +24,12 @@ if (isset($_POST['query'])) {
     $condicion = "WHERE usuarios.nombre_user LIKE '%$busqueda%' 
                   OR usuarios.apellido_user LIKE '%$busqueda%' 
                   OR usuarios.telefono LIKE '%$busqueda%' 
-                  OR areas.nombre_area LIKE '%$busqueda%'";
+                  OR areas.nombre_area LIKE '%$busqueda%'
+                  OR DATE_FORMAT(usuarios.fechaRegistro, '%d/%m/%Y') LIKE '%$busqueda%'";
 }
 
-$sql = "SELECT usuarios.id, usuarios.nombre_user, usuarios.apellido_user, usuarios.telefono, areas.nombre_area
+$sql = "SELECT usuarios.id, usuarios.nombre_user, usuarios.apellido_user, usuarios.telefono, areas.nombre_area, 
+               DATE_FORMAT(usuarios.fechaRegistro, '%d/%m/%Y') AS fechaRegistro
         FROM usuarios
         INNER JOIN areas ON usuarios.area_id = areas.id
         $condicion
@@ -43,6 +45,7 @@ if (isset($_POST['query'])) {
                     <td>{$fila['nombre_user']}</td>
                     <td>{$fila['apellido_user']}</td>
                     <td>{$fila['telefono']}</td>
+                    <td>{$fila['fechaRegistro']}</td>
                     <td>{$fila['nombre_area']}</td>
                     <td>
                         <a href='#' class='btn btn-success btn-sm content-icon'><i class='fa fa-fw fa-eye'></i></a>
@@ -111,6 +114,7 @@ if (isset($_POST['query'])) {
                                         <th>apellido</th>
                                         <th>telefono</th>
                                         <th>area</th>
+                                        <th>fecha de registro</th>
                                         <th>acciones</th>
                                     </tr>
                                 </thead>
@@ -124,6 +128,7 @@ if (isset($_POST['query'])) {
                                                 <td>{$fila['apellido_user']}</td>
                                                 <td>{$fila['telefono']}</td>
                                                 <td>{$fila['nombre_area']}</td>
+                                                <td>{$fila['fechaRegistro']}</td>
                                                 <td>
                                                 <a href='#' class='btn btn-success btn-sm content-icon'><i class='fa fa-fw fa-eye'></i></a>
                                                  <a href='editar_user.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>

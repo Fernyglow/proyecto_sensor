@@ -14,9 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST['nombre_user'];
     $apelido_user = $_POST ['apellido_user'];
     $telefono = $_POST['telefono'];
+    $fecharegistro = $_POST['fechaRegistro'];
     $id_area = $_POST['id_area'];
 
-    $conn->query("INSERT INTO usuarios (nombre_user, apellido_user, telefono, area_id) VALUES ('$nombre', '$apelido_user', '$telefono', '$id_area')");
+    $conn->query("INSERT INTO usuarios (nombre_user, apellido_user, telefono, fechaRegistro, area_id) VALUES ('$nombre', '$apelido_user', '$telefono', '$fecharegistro', '$id_area')");
     header("Location: tabla_usuario.php");
     exit();
 }
@@ -61,10 +62,10 @@ $areas = $conn->query("SELECT * FROM areas");
                                     <label class="form-label">telefono</label>
                                    <input type="text" name="telefono" class="form-control" placeholder="Teléfono"  pattern="\d{10}" minligth="10" maxligth="10" required>
                                 </div>
-                                <!--<div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-6">
                                     <label class="form-label">fecha registro</label>
                                     <input type="date" class="form-control" id="fechaRegistro" name="fechaRegistro" required>
-                                </div>-->
+                                </div>
                             </div>
 
                             <div class="row">

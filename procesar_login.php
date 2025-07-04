@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conexion = new mysqli("", "", "$", "");
+$conexion = new mysqli("localhost", "root", "fercho2005", "temperatura");
 
 $usuario = $_POST['usuario'];
 $contrasena = $_POST['contrasena'];
