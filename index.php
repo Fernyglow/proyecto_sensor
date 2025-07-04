@@ -173,7 +173,7 @@ if (!isset($_SESSION['usuario'])) {
 							<span class="nav-text">panel</span>
 						</a>
                         <ul aria-expanded="false">
-							<li><a href="">Inicio</a></li>
+							<li><a href="index.php">Inicio</a></li>
 							<li><a href="index.php">tablero oscuro</a></li>
 							<li><a href="index-light.php">tablero ligero</a></li>
 						</ul>
@@ -205,7 +205,7 @@ if (!isset($_SESSION['usuario'])) {
 							<span class="nav-text">Estado</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="app-profile.html">panel de control</a></li>
+                            <li><a href="grafica_temperatura.php">grafica en tiempo real</a></li>
 							 <li><a href="edit-profile.html">historial de hoy</a></li>
                             <li><a href="app-calender.html">temperatura actual</a></li>
                         </ul>

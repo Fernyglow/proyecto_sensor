@@ -48,7 +48,7 @@ if (isset($_POST['query'])) {
                     <td>{$fila['fechaRegistro']}</td>
                     <td>{$fila['nombre_area']}</td>
                     <td>
-                        <a href='#' class='btn btn-success btn-sm content-icon'><i class='fa fa-fw fa-eye'></i></a>
+                        <a href='ver_usuarios.php?id={$fila['id']}' class='btn btn-success btn-sm content-icon' title='ver'><i class='fa fa-fw fa-eye'></i></a>
                         <a href='editar_user.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
                         <a class='btn btn-danger btn-sm content-icon'  title='eliminar' onclick='eliminarUsuario({$fila['id']})'><i class='fa fa-times'></i></a>
                     </td>
@@ -130,7 +130,7 @@ if (isset($_POST['query'])) {
                                                 <td>{$fila['nombre_area']}</td>
                                                 <td>{$fila['fechaRegistro']}</td>
                                                 <td>
-                                                <a href='#' class='btn btn-success btn-sm content-icon'><i class='fa fa-fw fa-eye'></i></a>
+                                                <a href='ver_usuarios.php?id={$fila['id']}' class='btn btn-success btn-sm content-icon' title='ver'><i class='fa fa-fw fa-eye'></i></a>
                                                  <a href='editar_user.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
                                                 <a class='btn btn-danger btn-sm content-icon'  title='eliminar' onclick='eliminarUsuario({$fila['id']})'><i class='fa fa-times' title='eliminar'></i></a>
                                                 </td>

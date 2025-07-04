@@ -38,7 +38,7 @@ $sql = "SELECT sensores.id, sensores.nombre_sensor, sensores.tipo_sensor, areas.
                             <td>{$fila['nombre_area']}</td>
                             <td>{$fila['estado']}</td>
                             <td>
-                                <a href='ver_sensor.php?id={$fila['id']}' class='btn btn-success btn-sm content-icon' title='ver'><i class='fa fa-fw fa-eye'></i></a>
+                                <a href='ver_datos.php?id={$fila['id']}' class='btn btn-success btn-sm content-icon' title='ver'><i class='fa fa-fw fa-eye'></i></a>
                                 <a href='editar_sensor.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
                                 <a class='btn btn-danger btn-sm content-icon' title='eliminar' onclick='eliminarSensor({$fila['id']})'><i class='fa fa-times'></i></a>
                             </td>
@@ -118,7 +118,7 @@ $sql = "SELECT sensores.id, sensores.nombre_sensor, sensores.tipo_sensor, areas.
                                                     <td>{$fila['nombre_area']}</td>
                                                     <td>{$fila['estado']}</td>
                                                     <td>
-                                                        <a href='ver_sensor.php?id={$fila['id']}' class='btn btn-success btn-sm content-icon' title='ver'><i class='fa fa-fw fa-eye'></i></a>
+                                                        <a href='ver_datos.php?id={$fila['id']}' class='btn btn-success btn-sm content-icon' title='ver'><i class='fa fa-fw fa-eye'></i></a>
                                                         <a href='editar_sensor.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
                                                         <a class='btn btn-danger btn-sm content-icon' title='eliminar' onclick='eliminarSensor({$fila['id']})'><i class='fa fa-times'></i></a>
                                                     </td> 
