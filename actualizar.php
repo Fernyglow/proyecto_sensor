@@ -12,7 +12,7 @@ $sql = "UPDATE usuarios
 
 if ($conn->query($sql) === TRUE) {
   echo "Usuario actualizado correctamente.<br>";
-  echo "<a href='mostrar.php'>Volver</a>";
+  echo "<a href='editar_user.php'>Volver</a>";
 } else {
   echo "Error al actualizar: " . $conn->error;
 }

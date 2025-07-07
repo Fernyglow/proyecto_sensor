@@ -33,22 +33,21 @@
                                 <div class="auth-form">
 									<div class="text-center mb-3">
 										<a href="#">
-											<img src="images/logo.png" alt="">
-											<img src="#" alt="">
+											<img src="images/image.png" class="img-fluid d-block mx-auto" style="width: 250px;" alt="">
 										</a>
 									</div>
                                     <?php if (isset($_SESSION['error'])): ?>
                                         <div class="alert alert-danger"><?= $_SESSION['error'] ?></div>
                                         <?php unset($_SESSION['error']); ?>
                                     <?php endif; ?>
-                                    <h4 class="text-center mb-4">Inicia session</h4>
+                                    <h4 class="text-center mt-4">Inicia session</h4>
                                     <form action="procesar_login.php" method="POST">
                                         <div class="form-group">
-                                            <label class="mb-1" for="usuario"><strong>Usuario</strong></label>
+                                            <label class="mb-3" for="usuario"><strong>Usuario</strong></label>
                                             <input type="text" id="usuario" name="usuario" class="form-control" required>
                                         </div>
                                         <div class="form-group">
-                                            <label class="mb-1" for="contrasena"><strong>contraseña</strong></label>
+                                            <label class="mb-3" for="contrasena"><strong>contraseña</strong></label>
                                             <input type="password" id="contrasena" name="contrasena" class="form-control" required>
                                         </div>
                                         <div class="text-center">

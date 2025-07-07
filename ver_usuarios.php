@@ -38,8 +38,8 @@ $usuarios = $resultado->fetch_assoc();
     <div class="container-fluid">
         <div class="row page-titles mx-0">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="">usuarios</a></li>
-                <li class="breadcrumb-item"><a href="">tabla</a></li>
+                <li class="breadcrumb-item"><a href="index.php">inicio</a></li>
+                <li class="breadcrumb-item"><a href="tabla_usuario.php">tabla usuarios</a></li>
                 <li class="breadcrumb-item active"><a href="">detalles usuarios</a></li>
             </ol>
         </div>
@@ -78,8 +78,8 @@ $usuarios = $resultado->fetch_assoc();
                                 </div>
                             </div>
 
-                            <div class="mb-3">
-                                <button class=""><a href="tabla_area.php">volver</a></button>
+                            <div class="d-flex justify-content-end">
+                                <a class="btn btn-light" href="tabla_sensores.php">volver</a>
                             </div>
                         </div>
                     </div>

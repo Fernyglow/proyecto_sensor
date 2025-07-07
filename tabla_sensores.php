@@ -17,11 +17,12 @@ if (isset($_POST['query'])) {
     $busqueda = $conn->real_escape_string($_POST['query']);
     $condicion = "WHERE sensores.nombre_sensor LIKE '%$busqueda%' 
                   OR sensores.tipo_sensor LIKE '%$busqueda%' 
+                  OR sensores.fechaRegistro LIKE '%$busqueda%'
                   OR areas.nombre_area LIKE '%$busqueda%'
                   OR sensores.estado LIKE '%$busqueda%'";
 } 
 
-$sql = "SELECT sensores.id, sensores.nombre_sensor, sensores.tipo_sensor, areas.nombre_area, sensores.estado
+$sql = "SELECT sensores.id, sensores.nombre_sensor, sensores.tipo_sensor, sensores.fechaRegistro, areas.nombre_area, sensores.estado
         FROM sensores
         INNER JOIN areas ON sensores.area_id = areas.id
         $condicion
@@ -35,11 +36,12 @@ $sql = "SELECT sensores.id, sensores.nombre_sensor, sensores.tipo_sensor, areas.
                     echo "<tr>
                             <td>{$fila['nombre_sensor']}</td>
                             <td>{$fila['tipo_sensor']}</td>
+                            <td>{$fila['fechaRegistro']}</td>
                             <td>{$fila['nombre_area']}</td>
                             <td>{$fila['estado']}</td>
                             <td>
-                                <a href='ver_datos.php?id={$fila['id']}' class='btn btn-success btn-sm content-icon' title='ver'><i class='fa fa-fw fa-eye'></i></a>
-                                <a href='editar_sensor.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
+                                <a href='ver_datos_sensor.php?id={$fila['id']}' class='btn btn-success btn-sm content-icon' title='ver'><i class='fa fa-fw fa-eye'></i></a>
+                                <a href='actualizar_sensores.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
                                 <a class='btn btn-danger btn-sm content-icon' title='eliminar' onclick='eliminarSensor({$fila['id']})'><i class='fa fa-times'></i></a>
                             </td>
                           </tr>";
@@ -82,8 +84,8 @@ $sql = "SELECT sensores.id, sensores.nombre_sensor, sensores.tipo_sensor, areas.
     <div class="container-fluid">
         <div class="row page-titles mx-0">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">tabla</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">datos</a></li>
+                <li class="breadcrumb-item"><a href="index.php">inicio</a></li>
+                <li class="breadcrumb-item active"><a href="#">tabla sensores</a></li>
             </ol>
         </div>
 
@@ -94,7 +96,7 @@ $sql = "SELECT sensores.id, sensores.nombre_sensor, sensores.tipo_sensor, areas.
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">tabla de usuarios</h4>
-                        <a href="agregar_area.php" class="btn btn-primary me-3 mt-2 mt-sm-0"><i class="feather feather-user-plis"></i>agrega nuevo</a>
+                        <a href="agregar_sensor.php" class="btn btn-primary me-3 mt-2 mt-sm-0"><i class="feather feather-user-plis"></i>agrega nuevo</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -103,6 +105,7 @@ $sql = "SELECT sensores.id, sensores.nombre_sensor, sensores.tipo_sensor, areas.
                                     <tr>
                                         <th>Nom. sensor</th>
                                         <th>tipo de sensor</th>
+                                        <th>fecha de registro</th>
                                         <th>area asignada</th>
                                         <th>estado</th>
                                         <th>acciones</th>
@@ -115,11 +118,12 @@ $sql = "SELECT sensores.id, sensores.nombre_sensor, sensores.tipo_sensor, areas.
                                             echo "<tr>
                                                     <td>{$fila['nombre_sensor']}</td>
                                                     <td>{$fila['tipo_sensor']}</td>
+                                                    <td>{$fila['fechaRegistro']}</td>
                                                     <td>{$fila['nombre_area']}</td>
                                                     <td>{$fila['estado']}</td>
                                                     <td>
-                                                        <a href='ver_datos.php?id={$fila['id']}' class='btn btn-success btn-sm content-icon' title='ver'><i class='fa fa-fw fa-eye'></i></a>
-                                                        <a href='editar_sensor.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
+                                                        <a href='ver_datos_sensor.php?id={$fila['id']}' class='btn btn-success btn-sm content-icon' title='ver'><i class='fa fa-fw fa-eye'></i></a>
+                                                        <a href='actualizar_sensores.php?id={$fila['id']}' class='btn btn-secondary btn-sm content-icon'><i class='fa fa-edit'></i></a>
                                                         <a class='btn btn-danger btn-sm content-icon' title='eliminar' onclick='eliminarSensor({$fila['id']})'><i class='fa fa-times'></i></a>
                                                     </td> 
                                                     </tr>";

@@ -30,23 +30,21 @@ $sensor_id = isset($_GET['sensor_id']) ? intval($_GET['sensor_id']) : 1;
         </div>
 
         <div class="container-fluid">
-            <div class="row page-titles mx-0">
-                <div class="card-header">
-                    <h4 class="card-title">Gradient Line Chart</h4> 
-                </div>
-                    <div class="mb-3">
-                        <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
-                            <button class="btn btn-primary" onclick="filtrar('ultimos5')">Últimos 5</button>
-                            <button class="btn btn-primary" onclick="filtrar('1hora')">Última Hora</button>
-                            <button class="btn btn-primary" onclick="filtrar('todo')">Todo el Día</button>
-                            <button class="btn btn-secondary" onclick="resetZoom()">🔄 Restablecer Zoom</button>
-                        </div>
-                    </div>
-                
-                <div class="card-body rounded shadow-sm p-3" style="overflow-x: auto;" >
-                    <canvas id="grafica" style="min-width:700px; height:400px;"></canvas>
-                </div>              
+            <div class="card-header">
+                <h4 class="card-title">Gradient Line Chart</h4> 
             </div>
+                <div class="mt-4">
+                    <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+                        <button class="btn btn-primary" onclick="filtrar('ultimos5')">Últimos 5</button>
+                        <button class="btn btn-primary" onclick="filtrar('1hora')">Última Hora</button>
+                        <button class="btn btn-primary" onclick="filtrar('todo')">Todo el Día</button>
+                    </div>
+                </div>
+                
+            <div class="card-body rounded shadow-sm p-3" style="overflow-x: auto;" >
+                <canvas id="grafica" style="min-width:700px; height:400px;"></canvas>
+            </div>              
+     
         </div>
     </div>
 </div>

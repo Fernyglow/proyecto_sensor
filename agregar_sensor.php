@@ -6,42 +6,26 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
-include("conexion.php");
+include 'conexion.php';
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $nombre = $_POST['nombre'];
-    $tipo = $_POST['tipo'];
-    $area = trim($_POST['area']);
-    $estado = $_POST['estado']; // ahora es texto: 'Activo' o 'No activo'
+$areas = $conn->query("SELECT * FROM areas");
 
-    // Verificar si el área ya existe
-    $sql = "SELECT id FROM areas WHERE nombre_area = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $area);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre = $_POST["nombre_sensor"];
+    $tipo = $_POST["tipo_sensor"];
+    $id_area = $_POST["id_area"];
+    $estado = $_POST["estado"];
+    $fecharegistro = $_POST["fechaRegistro"];
+
+    $stmt = $conn->prepare("INSERT INTO sensores (nombre_sensor, tipo_sensor, area_id, estado, fechaRegistro) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssiss", $nombre, $tipo, $id_area, $estado, $fecharegistro);
     $stmt->execute();
-    $resultado = $stmt->get_result();
 
-    if ($resultado->num_rows > 0) {
-        $area_id = $resultado->fetch_assoc()['id'];
+    if ($stmt->affected_rows > 0) {
+        header("Location: tabla_sensores.php");
+        exit;
     } else {
-        $stmt_insert = $conn->prepare("INSERT INTO areas (nombre_area) VALUES (?)");
-        $stmt_insert->bind_param("s", $area);
-        if ($stmt_insert->execute()) {
-            $area_id = $conn->insert_id;
-        } else {
-            die("Error al insertar área: " . $stmt_insert->error);
-        }
-    }
-
-    // Insertar el sensor con estado como texto
-    $stmt_user = $conn->prepare("INSERT INTO sensores (nombre_sensor, tipo_sensor, area_id, estado) VALUES (?, ?, ?, ?)");
-    $stmt_user->bind_param("ssis", $nombre, $tipo, $area_id, $estado);
-
-    if ($stmt_user->execute()) {
-        header("Location: tabla_area.php");
-        exit();
-    } else {
-        echo "Error al insertar sensor: " . $stmt_user->error;
+        echo "Error al insertar el sensor.";
     }
 }
 ?>
@@ -51,13 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div class="container-fluid">
         <div class="row page-titles mx-0">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Sensor</a></li>
-                <li class="breadcrumb-item active"><a href="#">Agregar</a></li>
+                <li class="breadcrumb-item"><a href="index.php">inicio</a></li>
+                <li class="breadcrumb-item active"><a href="#">agregar sensores</a></li>
             </ol>
         </div>
 
         <div class="col-12 d-flex justify-content-center">
-            <div class="card">
+            <div class="card container mt-4">
                 <div class="card-header">
                     <h4 class="card-title">Nuevo Sensor</h4>
                 </div>
@@ -67,19 +51,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <div class="row">
                                 <div class="mb-3 ">
                                     <label class="form-label">Nombre del sensor</label>
-                                    <input type="text" name="nombre" class="form-control" placeholder="Nombre del sensor" required>
+                                    <input type="text" name="nombre_sensor" class="form-control" placeholder="Nombre del sensor" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Tipo de sensor</label>
-                                    <input type="text" name="tipo" class="form-control" placeholder="Tipo de sensor">
+                                    <input type="text" name="tipo_sensor" class="form-control" placeholder="Tipo de sensor">
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="mb-3">
+                                <div class="mb-3 col-md-6">
                                     <label class="form-label">Área asignada</label>
-                                    <input type="text" name="area" class="form-control" placeholder="Área" required>
+                                    <select name="id_area" id="id_area" class="default-select form-control wide">
+                                        <?php while ($area = $areas->fetch_assoc()): ?>
+                                            <option value=" <?= $area['id'] ?>"><?= $area['nombre_area'] ?></option>
+                                        <?php endwhile; ?>
+                                    </select>
                                 </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label">fecha de registro</label>
+                                    <input type="date" class="form-control" id="fechaRegistro" name="fechaRegistro" required>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Estado del sensor</label>
                                     <select name="estado" class="form-control" required>
@@ -91,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                             <div class="d-flex justify-content-end">
                                 <button type="submit" class="btn me-2 btn-primary">Guardar</button>
-                                <a href="tabla_area.php" class="btn btn-light">Cancelar</a>
+                                <a href="tabla_sensores.php" class="btn btn-light">Cancelar</a>
                             </div>
                         </form>
                     </div>
@@ -100,3 +94,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
     </div>
 </div>
+    <script>
+        // Este script se ejecuta cuando el DOM está completamente cargado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtenemos una referencia al campo de fecha
+            const fechaRegistroInput = document.getElementById('fechaRegistro');
+
+            // Obtenemos la fecha actual
+            const today = new Date();
+
+            // Extraemos el año, mes y día
+            const year = today.getFullYear();
+            // getMonth() devuelve 0 para Enero, 1 para Febrero, ..., 11 para Diciembre.
+            // Por eso, sumamos 1 y usamos padStart para que siempre tenga 2 dígitos (ej., '07').
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            // getDate() devuelve el día del mes (1-31). Usamos padStart para 2 dígitos.
+            const day = String(today.getDate()).padStart(2, '0');
+
+            // Formateamos la fecha en el formato YYYY-MM-DD, que es lo que espera input type="date"
+            const formattedDate = `${year}-${month}-${day}`;
+
+            // Asignamos la fecha formateada al valor del campo de input
+            fechaRegistroInput.value = formattedDate;
+        });
+    </script>

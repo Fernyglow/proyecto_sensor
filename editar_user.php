@@ -29,13 +29,14 @@ $areas = $conn->query("SELECT * FROM areas");
     <div class="container-fluid">
         <div class="row page-titles mx-0">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">usuario</a></li>
-                <li class="breadcrumb-item active"><a href="#">Editar</a></li>
+                <li class="breadcrumb-item"><a href="#">inicio</a></li>
+                <li class="breadcrumb-item"><a href="tabla_usuarios.php">tabla usuarios</a></li>
+                <li class="breadcrumb-item active"><a href="#">actualizar usuarios</a></li>
             </ol>
         </div>
 
-        <div class="col-xl-6 col-log-12">
-            <div class="card">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="card container mt-4">
                 <div class="card-header">
                     <h4 class="card-title">actualiza el usuario</h4>
                 </div>
@@ -63,7 +64,7 @@ $areas = $conn->query("SELECT * FROM areas");
                             </div>
                             <div class="row">
                                 <div class="mb-3 col-md-6">
-                                    <label class="form label">area</label>
+                                    <label class="form-label">area</label>
                                     <select id="id_area" name="id_area" class="default-select form-control wide" required>
                                         <option value="" disabled selected>-- Selecciona un área --</option>
                                         <?php while ($area = $areas->fetch_assoc()): ?>
@@ -75,7 +76,7 @@ $areas = $conn->query("SELECT * FROM areas");
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn me-2 btn-primary">Guardar</button>
+                                <button type="submit" class="btn me-2 btn-primary">Guardar cambios</button>
                                 <button type="submit" class="btn btn-light"><a href="tabla_usuario.php">Cancelar</a></button>
                             </div>
                         </form>
