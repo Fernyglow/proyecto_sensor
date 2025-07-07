@@ -1,7 +1,11 @@
 <?php
 $servername = "";
 $username = "";
+<<<<<<< HEAD
 $password = '';
+=======
+$password = '$';
+>>>>>>> 658f208 (nuevos cambios)
 $dbname = "";
 
 $conn = new mysqli ($servername, $username, $password, $dbname);
