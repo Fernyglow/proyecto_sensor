@@ -115,3 +115,4 @@ $areas = $conn->query("SELECT * FROM areas");
         });
     </script>
 
+<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>

@@ -33,7 +33,7 @@
                                 <div class="auth-form">
 									<div class="text-center mb-3">
 										<a href="#">
-											<img src="images/image.png" class="img-fluid d-block mx-auto" style="width: 250px;" alt="">
+											<img src="images/lds1.png" class="img-fluid d-block mx-auto" style="width: 250px;" alt="">
 										</a>
 									</div>
                                     <?php if (isset($_SESSION['error'])): ?>

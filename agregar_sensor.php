@@ -118,3 +118,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             fechaRegistroInput.value = formattedDate;
         });
     </script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>

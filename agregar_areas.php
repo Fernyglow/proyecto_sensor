@@ -41,3 +41,4 @@
         </div>
     </div>
 </div>
+<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>

@@ -6,10 +6,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST["nombre_sensor"]; 
     $tipo = $_POST["tipo_sensor"];
     $id_area = $_POST['id_area'];
-    $estado = $_POST["estado"];
+    $estado = $_POST["estado"]; // Ahora es una cadena: 'Activo' o 'No activo'
 
+    // Cambiado: usamos 'sssii' ya que 'estado' ahora es string
     $stmt = $conn->prepare("UPDATE sensores SET nombre_sensor=?, tipo_sensor=?, area_id=?, estado=? WHERE id=?");
-    $stmt->bind_param("ssiii", $nombre, $tipo, $id_area, $estado, $id);
+    $stmt->bind_param("ssisi", $nombre, $tipo, $id_area, $estado, $id);
     $stmt->execute();
 
     header("location: tabla_sensores.php");
@@ -58,7 +59,7 @@ $areas = $conn->query("SELECT * FROM areas");
                             <div class="row">
                                 <div class="mb-3 ">
                                     <label class="form-label">Área</label>
-                                    <select name="id_area" id="id_area" class="default-select form-control wide">
+                                    <select name="id_area" id="id_area" class="default-select form-control wide" required>
                                         <option value="" disabled>-- Selecciona un área --</option>
                                         <?php while ($area = $areas->fetch_assoc()): ?>
                                             <option value="<?= $area['id'] ?>" <?= $area['id'] == $sensores['area_id'] ? 'selected' : '' ?>>
@@ -72,17 +73,17 @@ $areas = $conn->query("SELECT * FROM areas");
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Estado</label>
-                                    <select name="estado" class="default-select form-control wide">
-                                        <option value="1" <?= $sensores['estado'] == 1 ? 'selected' : '' ?>>Activo</option>
-                                        <option value="0" <?= $sensores['estado'] == 0 ? 'selected' : '' ?>>no activo</option>
-
+                                    <select name="estado" class="default-select form-control wide" required>
+                                        <option value="Activo" <?= $sensores['estado'] == 'Activo' ? 'selected' : '' ?>>Activo</option>
+                                        <option value="No activo" <?= $sensores['estado'] == 'No activo' ? 'selected' : '' ?>>No activo</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="d-flex justify-content-end">
+                            <div class="d-flex justify-content-end gap-2">
                                 <button type="submit" class="btn btn-primary mt-2">Guardar cambios</button>
-                                <button type="submit" class="btn btn-light"><a href="tabla_sensores.php">Cancelar</a></button>
+                                <!-- Corregido: este botón ya no envía el formulario -->
+                                <a href="tabla_sensores.php" class="btn btn-light mt-2">Cancelar</a>
                             </div>
                         </form>
                     </div>
@@ -92,3 +93,4 @@ $areas = $conn->query("SELECT * FROM areas");
         </div>
     </div>
 </div>
+<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>

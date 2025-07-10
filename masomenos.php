@@ -1,113 +1,74 @@
-<?php 
-session_start();
-if (!isset($_SESSION['usuario'])) {
-	header("location: page-login.php");
-	exit;
-}
-
+<?php
+// index.php
 include 'conexion.php';
-
-$sensor_id = isset($_GET['sensor_id']) ? intval($_GET['sensor_id']) : 1;
 ?>
 
-<style>
-    .scroll-box {
-        max-height: 280px;
-        overflow-y: auto;
-        scrollbar-width: thin;
-        scrollbar-color: #888 transparent;
-    }
-    .scroll-box::-webkit-scrollbar {
-        width: 6px;
-    }
-    .scroll-box::-webkit-scrollbar-thumb {
-        background-color: #888;
-        border-radius: 4px;
-    }
-    .fecha-item:hover {
-        background-color: #0d6efd;
-        color: white;
-        cursor: pointer;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Temperatura por Área</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .scroll-box {
+            max-height: 280px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #888 transparent;
+        }
+        .scroll-box::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scroll-box::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 4px;
+        }
+        .fecha-item:hover {
+            background-color: #0d6efd;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container my-4">
+    <h3 class="mb-3">Temperaturas por Área</h3>
+    <div class="mb-3">
+        <label for="select-area" class="form-label">Selecciona un área:</label>
+        <select id="select-area" class="form-select" onchange="cambiarArea()"></select>
+    </div>
 
-    .chart-container {
-        width: 100%;
-        height: 100%;
-        max-height: 300px; /* Limita la altura */
-        overflow: hidden;
-    }
-
-    canvas {
-        width: 100% !important;
-        height: 100% !important;
-    }
-
-</style>
-
-<?php include 'index.php' ?>
-
-<div class="content-body">
-    <div class="container-fluid">
-        <div class="row page-titles mx-0">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="">sensor</a></li>
-                <li class="breadcrumb-item"><a href="">tabla</a></li>
-                <li class="breadcrumb-item active"><a href="">detalles sensor</a></li>
-            </ol>
-        </div>
-        
-        <div class="mb-3">
-            <label for="select-area" class="form-label">seleccione un area</label>
-            <select id="select-area" class="form-control" onchange="cambiarArea()"></select>
-        </div>
-
-
-        <div class="row mt-3">
-            <div class="col-md-4 col-12 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="car-intro-title">fechas</h4>
-                    </div>
-                    <div class="card">
-                        <ul id="lista-fechas" class="list-group list-group-flush scroll-box"></ul>
-                    </div>
-                    
-                </div>
-            </div>
-
-            <div class="col-md-8 col-12 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-intro-title">datos</h4><span id="fecha-titulo"></span>
-                    </div>
-                    <div class="card-body scroll-box">
-                        <ul id="lista-temperaturas" class="list-group list-group-flush">
-                            <li class="list-group-item">seleccione una fecha para ver los datos</li>
-                        </ul>
-                    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Fechas disponibles</div>
+                <div class="card-body scroll-box">
+                    <ul id="lista-fechas" class="list-group"></ul>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Gráfica de Temperatura</h4>
-                        <div class="rounded shadow-sm p-3">
-                            <div class="chart-container" style="position: relative; width: 100%; max-height: 300px;">
-                                <canvas id="grafica"></canvas>
-                            </div>
-                        </div>
-                    </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    Datos de la fecha: <span id="fecha-titulo">Ninguna seleccionada</span>
+                </div>
+                <div class="card-body scroll-box">
+                    <ul id="lista-temperaturas" class="list-group">
+                        <li class="list-group-item">Seleccione una fecha para ver los datos</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+
+    <h3 class="mt-4">Gráfica de Temperaturas (rango general)</h3>
+    <div class="card p-3">
+        <canvas id="grafica" style="min-width:100%; height:400px;"></canvas>
+    </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 
 <script>
 let chart;
@@ -134,8 +95,6 @@ function cargarAreas() {
 function cambiarArea() {
     const select = document.getElementById("select-area");
     areaId = parseInt(select.value);
-    document.getElementById('fecha-titulo').textContent = 'Ninguna seleccionada';
-    document.getElementById('lista-temperaturas').innerHTML = '<li class="list-group-item">Seleccione una fecha para ver los datos</li>';
     cargarFechas();
     cargarDatosGrafica();
 }
@@ -177,7 +136,7 @@ function cargarTemperaturasPorFecha(fecha) {
 }
 
 function cargarDatosGrafica() {
-    fetch(`api_temperatura_ultima_hora.php?area_id=${areaId}`)
+    fetch(`api_temperatura_rango.php?area_id=${areaId}&rango=todo`)
         .then(res => res.json())
         .then(data => {
             const fechas = data.map(p => p.fecha);
@@ -237,4 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

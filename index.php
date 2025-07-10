@@ -16,14 +16,9 @@ if (!isset($_SESSION['usuario'])) {
 	<meta name="keywords" content="admin, dashboard">
 	<meta name="author" content="DexignZone">
 	<meta name="robots" content="index, follow">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Karciz : Ticketing Admin Dashboard Bootstrap 5 Template">
-	<meta property="og:title" content="Karciz : Ticketing Admin Dashboard Bootstrap 5 Template">
-	<meta property="og:description" content="Karciz : Ticketing Admin Dashboard Bootstrap 5 Template">
-	<meta property="og:image" content="https://Karciz.dexignzone.com/xhtml/social-image.png">
-    <title>KARCIZ - Ticketing Admin Dashboard </title>
+    <title>linea digital </title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/lds1.png">
 	<link href="vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -56,7 +51,7 @@ if (!isset($_SESSION['usuario'])) {
         ***********************************-->
         <div class="nav-header">
             <a href="index.php" class="brand-logo">
-                <img src="images/image.png" class="img-fluid" alt="">
+                <img src="images/lds1.png" class="img-fluid" alt="">
             </a>
             <div class="nav-control">
                 <div class="hamburger">
@@ -82,14 +77,6 @@ if (!isset($_SESSION['usuario'])) {
                             </div>
                         </div>
                         <ul class="navbar-nav header-right">
-							<li class="nav-item">
-								<div class="input-group search-area ms-auto d-inline-flex">
-									<input type="text" class="form-control" placeholder="Search here">
-									<div class="input-group-append">
-										<button type="button" class="input-group-text"><i class="flaticon-381-search-2"></i></button>
-									</div>
-								</div>
-							</li>
 							<li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link bell dz-theme-mode active" href="javascript:void(0);">
 									<i id="icon-light" class="far fa-sun"></i>
@@ -182,8 +169,8 @@ if (!isset($_SESSION['usuario'])) {
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="grafica_temperatura.php">grafica en tiempo real</a></li>
-							 <li><a href="edit-profile.html">historial de hoy</a></li>
-                            <li><a href="app-calender.html">temperatura actual</a></li>
+							 <li><a href="ver_temperatura.php">historial de hoy</a></li>
+                            <li><a href="nose.php">temperatura actual</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -199,7 +186,7 @@ if (!isset($_SESSION['usuario'])) {
     ***********************************-->
     <!-- Required vendors -->
     <script src="vendor/global/global.min.js"></script>
-	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+	
 	<script src="vendor/chart.js/Chart.bundle.min.js"></script>
 	<script src="vendor/owl-carousel/owl.carousel.js"></script>
 	<!-- Apex Chart -->

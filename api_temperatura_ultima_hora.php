@@ -3,11 +3,10 @@ include 'conexion.php';
 
 $area_id = isset($_GET['area_id']) ? intval($_GET['area_id']) : 1;
 
-// Solo datos del día actual, última hora, de sensores que pertenecen al área
 $sql = "SELECT t.fecha_hora, t.valor
         FROM temperatura t
         INNER JOIN sensores s ON t.sensor_id = s.id
-        WHERE s.area_id = ? 
+        WHERE s.area_id = ?
           AND DATE(t.fecha_hora) = CURDATE()
           AND t.fecha_hora >= NOW() - INTERVAL 1 HOUR
         ORDER BY t.fecha_hora ASC";
